@@ -1109,29 +1109,44 @@
                 const href = this.getAttribute('href');
 
                 if (!href || href === '#') {
-                    return;
-                }
-
-                const target = document.querySelector(href);
-
-                if (target) {
                     e.preventDefault();
 
-                    const headerEl = document.querySelector('.header');
-                    const serviceBar = document.querySelector('.service-bar');
-                    const headerHeight = headerEl ? headerEl.offsetHeight : 0;
-                    const serviceBarHeight = serviceBar ? serviceBar.offsetHeight : 0;
-                    const targetPosition = target.offsetTop - headerHeight - serviceBarHeight;
-
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-
-                    // Close mobile menu if open
                     if (navMenu) {
                         navMenu.classList.remove('active');
                     }
+
+                    return;
+                }
+
+                const targetId = href.slice(1);
+
+                if (!targetId) {
+                    e.preventDefault();
+                    return;
+                }
+
+                const target = document.getElementById(targetId);
+
+                if (!target) {
+                    return;
+                }
+
+                e.preventDefault();
+
+                const headerEl = document.querySelector('.header');
+                const serviceBar = document.querySelector('.service-bar');
+                const headerHeight = headerEl ? headerEl.offsetHeight : 0;
+                const serviceBarHeight = serviceBar ? serviceBar.offsetHeight : 0;
+                const targetPosition = target.offsetTop - headerHeight - serviceBarHeight;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+
+                // Close mobile menu if open
+                if (navMenu) {
+                    navMenu.classList.remove('active');
                 }
             });
         });
@@ -1188,32 +1203,58 @@
 
         // Parallax effect for hero section
         const heroMediaImage = document.querySelector('.hero-media img');
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const prefersReducedMotion = typeof window.matchMedia === 'function'
+            ? window.matchMedia('(prefers-reduced-motion: reduce)')
+            : null;
 
-        const updateParallax = () => {
-            if (!heroMediaImage) {
-                return;
-            }
+        if (heroMediaImage) {
+            const updateParallax = () => {
+                const scrolled = window.pageYOffset;
+                heroMediaImage.style.transform = `translateY(${Math.min(scrolled * 0.15, 120)}px)`;
+            };
 
-            if (prefersReducedMotion.matches || window.innerWidth <= 768) {
+            let parallaxEnabled = false;
+
+            const disableParallax = () => {
+                if (parallaxEnabled) {
+                    window.removeEventListener('scroll', updateParallax);
+                    parallaxEnabled = false;
+                }
+
                 heroMediaImage.style.transform = 'translateY(0)';
-                return;
+            };
+
+            const enableParallax = () => {
+                if (!parallaxEnabled) {
+                    window.addEventListener('scroll', updateParallax);
+                    parallaxEnabled = true;
+                }
+
+                updateParallax();
+            };
+
+            const applyParallaxPreferences = () => {
+                const shouldReduceMotion = (prefersReducedMotion && prefersReducedMotion.matches) || window.innerWidth <= 768;
+
+                if (shouldReduceMotion) {
+                    disableParallax();
+                } else {
+                    enableParallax();
+                }
+            };
+
+            window.addEventListener('resize', applyParallaxPreferences);
+
+            if (prefersReducedMotion) {
+                if (typeof prefersReducedMotion.addEventListener === 'function') {
+                    prefersReducedMotion.addEventListener('change', applyParallaxPreferences);
+                } else if (typeof prefersReducedMotion.addListener === 'function') {
+                    prefersReducedMotion.addListener(applyParallaxPreferences);
+                }
             }
 
-            const scrolled = window.pageYOffset;
-            heroMediaImage.style.transform = `translateY(${scrolled * 0.15}px)`;
-        };
-
-        window.addEventListener('scroll', updateParallax);
-        window.addEventListener('resize', updateParallax);
-
-        if (typeof prefersReducedMotion.addEventListener === 'function') {
-            prefersReducedMotion.addEventListener('change', updateParallax);
-        } else if (typeof prefersReducedMotion.addListener === 'function') {
-            prefersReducedMotion.addListener(updateParallax);
+            applyParallaxPreferences();
         }
-
-        updateParallax();
     </script>
 </body>
 </html>
