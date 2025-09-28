@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaDrop - La douche éco-luxe, en pastille</title>
+    <meta name="description" content="Découvrez AquaDrop : des pastilles de gel douche révolutionnaires dans un flacon réutilisable rPET. Réduisez le plastique à usage unique tout en gardant une expérience luxueuse.">
+    <meta name="keywords" content="gel douche écologique, pastilles douche, flacon réutilisable, cosmétiques durables, AquaDrop">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%230B3D2E'/%3E%3Cpath d='M50 25c-8 0-15 8-15 18 0 12 15 25 15 25s15-13 15-25c0-10-7-18-15-18z' fill='%2323B5D3'/%3E%3C/svg%3E">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --deep-green: #0B3D2E;
+            --forest-green: #1F6F57;
+            --aqua: #23B5D3;
+            --soft-gold: #C6A15B;
+            --ivory: #F7F5F0;
+            --anthracite: #1C1C1C;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--anthracite);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Fraunces', serif;
+            line-height: 1.2;
+        }
+
+        /* Splash Screen */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--deep-green) 0%, var(--forest-green) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 1;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .splash-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .splash-logo {
+            text-align: center;
+            color: var(--ivory);
+            animation: logoFadeIn 2s ease-in-out;
+        }
+
+        .splash-logo svg {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+        }
+
+        .splash-logo h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .splash-logo p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        @keyframes logoFadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(11, 61, 46, 0.1);
+            padding: 1rem 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-section svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--deep-green);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--anthracite);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--aqua);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--aqua);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--deep-green);
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--ivory);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--deep-green) 0%, var(--forest-green) 60%, var(--aqua) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') center/cover;
+            opacity: 0.15;
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            z-index: 2;
+            position: relative;
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: heroFadeIn 1.5s ease-out 0.5s both;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary, .cta-secondary {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            border: 2px solid transparent;
+        }
+
+        .cta-primary {
+            background: var(--soft-gold);
+            color: var(--anthracite);
+            border-color: var(--soft-gold);
+        }
+
+        .cta-primary:hover {
+            background: transparent;
+            color: var(--soft-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(198, 161, 91, 0.3);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: var(--white);
+            border-color: var(--white);
+        }
+
+        .cta-secondary:hover {
+            background: var(--white);
+            color: var(--deep-green);
+            transform: translateY(-2px);
+        }
+
+        @keyframes heroFadeIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-alt {
+            background: var(--ivory);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--deep-green);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--anthracite);
+            opacity: 0.8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* How It Works */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(11, 61, 46, 0.1);
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--aqua), var(--forest-green));
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .step-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--deep-green);
+        }
+
+        /* Products Section */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(11, 61, 46, 0.1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .product-image {
+            height: 250px;
+            background: linear-gradient(135deg, var(--ivory), #e8f4f8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--forest-green);
+            font-size: 3rem;
+        }
+
+        .product-content {
+            padding: 2rem;
+        }
+
+        .product-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--deep-green);
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--soft-gold);
+            margin-bottom: 1rem;
+        }
+
+        .product-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .product-cta {
+            width: 100%;
+            padding: 1rem;
+            background: var(--deep-green);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .product-cta:hover {
+            background: var(--forest-green);
+            transform: translateY(-2px);
+        }
+
+        /* Impact Section */
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--aqua);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-weight: 600;
+            color: var(--deep-green);
+        }
+
+        /* FAQ Section */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--deep-green);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            display: none;
+            line-height: 1.6;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Team Section */
+        .team-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .team-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--soft-gold), #d4b36a);
+            color: var(--anthracite);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--deep-green);
+            color: var(--ivory);
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--aqua);
+        }
+
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-ctas {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-primary, .cta-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .steps-grid,
+            .products-grid,
+            .impact-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-logo">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="dropGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#23B5D3;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#1F6F57;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <circle cx="50" cy="50" r="48" fill="none" stroke="url(#dropGradient)" stroke-width="2"/>
+                <path d="M50 20c-12 0-20 10-20 22 0 15 20 32 20 32s20-17 20-32c0-12-8-22-20-22z" fill="url(#dropGradient)"/>
+                <circle cx="50" cy="75" r="8" fill="#C6A15B" opacity="0.8"/>
+                <circle cx="42" cy="70" r="4" fill="#C6A15B" opacity="0.6"/>
+                <circle cx="58" cy="72" r="3" fill="#C6A15B" opacity="0.4"/>
+            </svg>
+            <h1>AquaDrop</h1>
+            <p>La douche éco-luxe</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav-container">
+            <div class="logo-section">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#23B5D3;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0B3D2E;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M50 15c-10 0-18 8-18 18 0 12 18 28 18 28s18-16 18-28c0-10-8-18-18-18z" fill="url(#logoGradient)"/>
+                    <circle cx="50" cy="70" r="12" fill="#C6A15B" opacity="0.8"/>
+                </svg>
+                <span class="logo-text">AquaDrop</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#boutique">Boutique</a></li>
+                <li><a href="#how-it-works">Comment ça marche</a></li>
+                <li><a href="#impact">Impact</a></li>
+                <li><a href="#team">Équipe</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>La douche éco-luxe, en pastille.</h1>
+            <p>Un flacon réutilisable, des recharges compactes, moins de plastique au quotidien.</p>
+            <div class="hero-ctas">
+                <a href="#boutique" class="cta-primary">Découvrir le kit</a>
+                <a href="#boutique" class="cta-secondary">Voir les recharges</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section section-alt" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title fade-in">Comment ça marche</h2>
+            <p class="section-subtitle fade-in">Trois étapes simples pour une douche luxueuse et écologique</p>
+            
+            <div class="steps-grid">
+                <div class="step-card fade-in">
+                    <div class="step-icon">1</div>
+                    <h3>Remplir d'eau</h3>
+                    <p>Remplissez votre flacon réutilisable rPET avec de l'eau tiède jusqu'au repère indiqué.</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-icon">2</div>
+                    <h3>Ajouter la pastille</h3>
+                    <p>Insérez une pastille AquaDrop dans le flacon et attendez quelques secondes qu'elle se dissolve.</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-icon">3</div>
+                    <h3>Pomper et mousser</h3>
+                    <p>Pompez pour créer une mousse onctueuse et profitez de votre gel douche premium.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="section" id="boutique">
+        <div class="container">
+            <h2 class="section-title fade-in">Nos Produits</h2>
+            <p class="section-subtitle fade-in">Découvrez notre gamme de produits éco-conçus</p>
+            
+            <div class="products-grid">
+                <div class="product-card fade-in">
+                    <div class="product-image">🧴💧</div>
+                    <div class="product-content">
+                        <h3 class="product-title">Kit AquaDrop Complet</h3>
+                        <div class="product-price">€23,90</div>
+                        <p class="product-description">
+                            1 flacon réutilisable rPET avec pompe moussante + 4 pastilles de gel douche (mix des 3 parfums). Idéal pour commencer votre routine éco-luxe.
+                        </p>
+                        <button class="product-cta">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in">
+                    <div class="product-image">🌿💊</div>
+                    <div class="product-content">
+                        <h3 class="product-title">Recharges Sport</h3>
+                        <div class="product-price">€4,20</div>
+                        <p class="product-description">
+                            Pack de recharges énergisantes à la menthe et eucalyptus. Parfait après le sport pour une sensation de fraîcheur intense.
+                        </p>
+                        <button class="product-cta">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in">
+                    <div class="product-image">🍃💊</div>
+                    <div class="product-content">
+                        <h3 class="product-title">Recharges Écolo</h3>
+                        <div class="product-price">€4,20</div>
+                        <p class="product-description">
+                            Formule 100% naturelle aux extraits de thé vert et aloe vera. Doux pour la peau et respectueux de l'environnement.
+                        </p>
+                        <button class="product-cta">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in">
+                    <div class="product-image">🌸💊</div>
+                    <div class="product-content">
+                        <h3 class="product-title">Recharges Sensitive</h3>
+                        <div class="product-price">€4,20</div>
+                        <p class="product-description">
+                            Spécialement formulé pour les peaux sensibles avec camomille et avoine. Hypoallergénique et sans parfum.
+                        </p>
+                        <button class="product-cta">Ajouter au panier</button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in">
+                    <div class="product-image">🎁💊</div>
+                    <div class="product-content">
+                        <h3 class="product-title">Pack 3 Recharges</h3>
+                        <div class="product-price">€11,70</div>
+                        <p class="product-description">
+                            Économisez avec notre pack découverte : 1 recharge de chaque parfum (Sport, Écolo, Sensitive). Livraison offerte !
+                        </p>
+                        <button class="product-cta">Ajouter au panier</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="section section-alt" id="impact">
+        <div class="container">
+            <h2 class="section-title fade-in">Notre Impact</h2>
+            <p class="section-subtitle fade-in">Des chiffres qui parlent pour notre planète</p>
+            
+            <div class="impact-stats">
+                <div class="stat-card fade-in">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">Moins de plastique qu'un flacon classique</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Flacon réutilisable rPET recyclé</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number">CE</div>
+                    <div class="stat-label">Conformité européenne (PIF, CPSR, CPNP)</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Déchet plastique avec nos recharges</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section" id="faq">
+        <div class="container">
+            <h2 class="section-title fade-in">Questions Fréquentes</h2>
+            <p class="section-subtitle fade-in">Tout ce que vous devez savoir sur AquaDrop</p>
+            
+            <div class="faq-container">
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Comment se dissolvent les pastilles ?
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        Les pastilles AquaDrop se dissolvent complètement dans l'eau tiède en 10-15 secondes grâce à leur formulation spéciale. Il suffit de secouer légèrement le flacon pour accélérer le processus.
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        La mousse est-elle aussi efficace ?
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        Absolument ! Notre pompe moussante créée une mousse riche et onctueuse identique aux gels douche traditionnels. La concentration en agents nettoyants est optimisée pour une efficacité maximale.
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Combien de temps se conservent les pastilles ?
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        Les pastilles se conservent 24 mois dans leur emballage d'origine, à l'abri de l'humidité. Une fois dissoutes dans l'eau, utilisez le gel douche dans les 3 mois pour une efficacité optimale.
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Convient-il aux peaux sensibles ?
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        Oui ! Notre gamme "Sensitive" est spécialement formulée pour les peaux sensibles, sans parfum et avec des ingrédients apaisants comme la camomille. Tous nos produits sont testés dermatologiquement.
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        Quels sont les délais de livraison ?
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        Livraison standard en 3-5 jours ouvrés en France métropolitaine. Livraison gratuite à partir de 35€ d'achat. Expédition sous 24h pour toute commande passée avant 14h.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section section-alt" id="team">
+        <div class="container">
+            <div class="team-content fade-in">
+                <div class="team-badge">Projet Mini-Entreprise LJE</div>
+                <h2 class="section-title">L'Équipe AquaDrop</h2>
+                <p class="section-subtitle">
+                    AquaDrop est née de l'imagination de trois étudiants passionnés par l'innovation durable. 
+                    Dans le cadre du concours Mini-Entreprise organisé par Entreprendre Pour Apprendre, 
+                    nous avons uni nos compétences pour créer une solution qui révolutionne l'industrie cosmétique.
+                </p>
+                <p style="margin-top: 2rem; font-size: 1.1rem; color: var(--forest-green);">
+                    <strong>Notre mission :</strong> Prouver qu'innovation rime avec préservation de l'environnement, 
+                    et que les jeunes ont le pouvoir de changer le monde, une pastille à la fois.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    🔒 Paiement sécurisé
+                </div>
+                <div class="trust-badge">
+                    🔄 Retour 14 jours
+                </div>
+                <div class="trust-badge">
+                    🚚 Livraison offerte dès 35€
+                </div>
+                <div class="trust-badge">
+                    🇪🇺 Fabriqué en Europe
+                </div>
+            </div>
+
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>AquaDrop</h3>
+                    <p>Révolutionnons ensemble l'industrie cosmétique pour un avenir plus durable.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📧 contact@aquadrop.fr</p>
+                    <p>📱 06 XX XX XX XX</p>
+                    <p>🏫 Lycée La Joliverie, Nantes</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Légal</h3>
+                    <p>Mentions légales</p>
+                    <p>CGV & CGU</p>
+                    <p>Politique de confidentialité</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Suivez-nous</h3>
+                    <p>🌍 Instagram</p>
+                    <p>💼 LinkedIn</p>
+                    <p>📘 Facebook</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 AquaDrop - Mini-Entreprise LJE. Tous droits réservés.</p>
+                <p>Développé avec 💚 pour un avenir plus propre</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Splash Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splashScreen');
+                splash.classList.add('fade-out');
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 800);
+            }, 2000);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                const answer = faqItem.querySelector('.faq-answer');
+                const isActive = faqItem.classList.contains('active');
+
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                    item.querySelector('.faq-answer').classList.remove('active');
+                });
+
+                // Toggle current item
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                    answer.classList.add('active');
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Product card hover effects
+        document.querySelectorAll('.product-cta').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Add cart animation here
+                button.textContent = 'Ajouté !';
+                button.style.background = 'var(--aqua)';
+                setTimeout(() => {
+                    button.textContent = 'Ajouter au panier';
+                    button.style.background = 'var(--deep-green)';
+                }, 1500);
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
