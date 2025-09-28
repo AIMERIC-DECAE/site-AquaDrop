@@ -15,13 +15,20 @@
     
     <style>
         :root {
-            --deep-green: #0B3D2E;
-            --forest-green: #1F6F57;
-            --aqua: #23B5D3;
-            --soft-gold: #C6A15B;
-            --ivory: #F7F5F0;
-            --anthracite: #1C1C1C;
-            --white: #FFFFFF;
+            --color-ink: #111111;
+            --color-charcoal: #1C1C1C;
+            --color-gold: #C5A15B;
+            --color-ivory: #F8F5EF;
+            --color-warm-gray: #E6E0D4;
+            --color-white: #FFFFFF;
+
+            --deep-green: var(--color-ink);
+            --forest-green: #3E3A34;
+            --aqua: var(--color-gold);
+            --soft-gold: var(--color-gold);
+            --ivory: var(--color-ivory);
+            --anthracite: var(--color-charcoal);
+            --white: var(--color-white);
         }
 
         * {
@@ -33,7 +40,8 @@
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            color: var(--anthracite);
+            color: var(--color-charcoal);
+            background: var(--color-white);
             overflow-x: hidden;
         }
 
@@ -49,7 +57,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--deep-green) 0%, var(--forest-green) 100%);
+            background: linear-gradient(135deg, var(--color-ink) 0%, #2f2b25 55%, var(--color-gold) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -92,23 +100,36 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Header */
-        .header {
+        .service-bar {
+            background: var(--color-ink);
+            color: var(--color-white);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.7rem;
+            padding: 0.75rem 2rem;
+            text-align: center;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(11, 61, 46, 0.1);
-            padding: 1rem 0;
+            z-index: 1100;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 48px;
+            left: 0;
+            width: 100%;
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-warm-gray);
+            padding: 1.25rem 0;
             z-index: 1000;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s ease;
         }
 
         .header.scrolled {
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            border-color: #d6cdbf;
         }
 
         .nav-container {
@@ -123,47 +144,47 @@
         .logo-section {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 1rem;
         }
 
         .logo-section svg {
-            width: 40px;
-            height: 40px;
+            width: 48px;
+            height: 48px;
         }
 
         .logo-text {
             font-family: 'Fraunces', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--deep-green);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--color-ink);
+            letter-spacing: 0.2em;
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .nav-menu a {
             text-decoration: none;
-            color: var(--anthracite);
+            color: var(--color-ink);
             font-weight: 500;
-            transition: color 0.3s ease;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            padding-bottom: 0.25rem;
             position: relative;
-        }
-
-        .nav-menu a:hover {
-            color: var(--aqua);
         }
 
         .nav-menu a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
             left: 0;
+            bottom: 0;
             width: 0;
-            height: 2px;
-            background: var(--aqua);
+            height: 1px;
+            background: var(--color-gold);
             transition: width 0.3s ease;
         }
 
@@ -189,11 +210,11 @@
         @media (max-width: 768px) {
             .nav-menu {
                 position: fixed;
-                top: 80px;
+                top: 140px;
                 left: -100%;
                 width: 100%;
-                height: calc(100vh - 80px);
-                background: var(--ivory);
+                height: calc(100vh - 140px);
+                background: var(--color-white);
                 flex-direction: column;
                 justify-content: flex-start;
                 align-items: center;
@@ -208,100 +229,118 @@
             .mobile-menu-toggle {
                 display: flex;
             }
+
+            .hero-container {
+                padding: 8.5rem 1.5rem 3rem;
+                gap: 2.5rem;
+            }
+
+            .hero-media {
+                min-height: 320px;
+            }
         }
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--deep-green) 0%, var(--forest-green) 60%, var(--aqua) 100%);
+            background: var(--color-ivory);
+            padding: 0;
+            min-height: 80vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
+            align-items: stretch;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') center/cover;
-            opacity: 0.15;
-            z-index: 1;
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 4rem;
+            align-items: stretch;
         }
 
         .hero-content {
-            text-align: center;
-            color: var(--white);
-            z-index: 2;
-            position: relative;
-            max-width: 800px;
-            padding: 0 2rem;
-            animation: heroFadeIn 1.5s ease-out 0.5s both;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.5rem;
+            color: var(--color-ink);
+            max-width: 460px;
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            font-size: clamp(2.8rem, 5vw, 4.2rem);
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
         }
 
         .hero p {
-            font-size: clamp(1.1rem, 2vw, 1.3rem);
-            margin-bottom: 2.5rem;
-            opacity: 0.95;
+            font-size: 1.1rem;
             line-height: 1.8;
+            max-width: 420px;
+        }
+
+        .hero-note {
+            font-size: 0.9rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-gold);
         }
 
         .hero-ctas {
             display: flex;
             gap: 1rem;
-            justify-content: center;
             flex-wrap: wrap;
+            justify-content: flex-start;
         }
 
-        .cta-primary, .cta-secondary {
-            padding: 1rem 2rem;
-            border-radius: 50px;
+        .cta-primary,
+        .cta-secondary {
+            padding: 0.9rem 2.5rem;
             text-decoration: none;
             font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            border: 1px solid transparent;
             transition: all 0.3s ease;
-            font-size: 1rem;
-            border: 2px solid transparent;
         }
 
         .cta-primary {
-            background: var(--soft-gold);
-            color: var(--anthracite);
-            border-color: var(--soft-gold);
+            background: var(--color-ink);
+            color: var(--color-white);
+            border-color: var(--color-ink);
         }
 
         .cta-primary:hover {
             background: transparent;
-            color: var(--soft-gold);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(198, 161, 91, 0.3);
+            color: var(--color-ink);
         }
 
         .cta-secondary {
             background: transparent;
-            color: var(--white);
-            border-color: var(--white);
+            color: var(--color-ink);
+            border-color: var(--color-ink);
         }
 
         .cta-secondary:hover {
-            background: var(--white);
-            color: var(--deep-green);
-            transform: translateY(-2px);
+            background: var(--color-ink);
+            color: var(--color-white);
         }
 
-        @keyframes heroFadeIn {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .hero-media {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            min-height: 480px;
+        }
+
+        .hero-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         /* Section Styles */
@@ -353,7 +392,7 @@
             border-radius: 20px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(11, 61, 46, 0.1);
+            border: 1px solid rgba(17, 17, 17, 0.08);
         }
 
         .step-card:hover {
@@ -364,13 +403,13 @@
         .step-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, var(--aqua), var(--forest-green));
+            background: linear-gradient(135deg, var(--color-ink), rgba(197, 161, 91, 0.85));
             border-radius: 50%;
             margin: 0 auto 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
+            color: var(--color-white);
             font-size: 2rem;
             font-weight: bold;
         }
@@ -384,73 +423,88 @@
         /* Products Section */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
             margin-top: 3rem;
+            justify-items: center;
         }
 
         .product-card {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
-            border: 1px solid rgba(11, 61, 46, 0.1);
+            background: var(--color-white);
+            border-radius: 12px;
+            border: 1px solid var(--color-warm-gray);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            max-width: 320px;
         }
 
         .product-card:hover {
-            transform: translateY(-8px);
+            border-color: var(--color-gold);
+            transform: translateY(-6px);
         }
 
-        .product-image {
-            height: 250px;
-            background: linear-gradient(135deg, var(--ivory), #e8f4f8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--forest-green);
-            font-size: 3rem;
+        .product-media {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            overflow: hidden;
+            border-radius: 8px;
         }
 
-        .product-content {
-            padding: 2rem;
+        .product-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .product-title {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--deep-green);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--color-ink);
         }
 
         .product-price {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--soft-gold);
-            margin-bottom: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--color-gold);
         }
 
         .product-description {
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--color-charcoal);
         }
 
-        .product-cta {
-            width: 100%;
-            padding: 1rem;
-            background: var(--deep-green);
-            color: var(--white);
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
+        .product-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
-        .product-cta:hover {
-            background: var(--forest-green);
-            transform: translateY(-2px);
+        .product-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--color-ink);
+        }
+
+        .product-link span {
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-link span {
+            transform: translateX(4px);
         }
 
         /* Impact Section */
@@ -472,7 +526,7 @@
         .stat-number {
             font-size: 3rem;
             font-weight: 700;
-            color: var(--aqua);
+            color: var(--color-gold);
             margin-bottom: 0.5rem;
         }
 
@@ -507,7 +561,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: var(--deep-green);
+            color: var(--color-ink);
         }
 
         .faq-answer {
@@ -561,7 +615,7 @@
 
         .footer-section h3 {
             margin-bottom: 1rem;
-            color: var(--aqua);
+            color: var(--color-gold);
         }
 
         .trust-badges {
@@ -631,14 +685,16 @@
     </style>
 </head>
 <body>
+    <div class="service-bar">Livraison offerte en France métropolitaine dès 25 € d'achat</div>
+
     <!-- Splash Screen -->
     <div class="splash-screen" id="splashScreen">
         <div class="splash-logo">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="dropGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#23B5D3;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#1F6F57;stop-opacity:1" />
+                        <stop offset="0%" style="stop-color:#C5A15B;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#111111;stop-opacity:1" />
                     </linearGradient>
                 </defs>
                 <circle cx="50" cy="50" r="48" fill="none" stroke="url(#dropGradient)" stroke-width="2"/>
@@ -656,15 +712,10 @@
     <header class="header" id="header">
         <nav class="nav-container">
             <div class="logo-section">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#23B5D3;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#0B3D2E;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    <path d="M50 15c-10 0-18 8-18 18 0 12 18 28 18 28s18-16 18-28c0-10-8-18-18-18z" fill="url(#logoGradient)"/>
-                    <circle cx="50" cy="70" r="12" fill="#C6A15B" opacity="0.8"/>
+                <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="6" y="6" width="108" height="108" rx="12" fill="none" stroke="var(--color-ink)" stroke-width="4"/>
+                    <circle cx="60" cy="60" r="34" fill="var(--color-ink)"/>
+                    <path d="M60 34c-12 0-22 10-22 22 0 16 22 36 22 36s22-20 22-36c0-12-10-22-22-22z" fill="var(--color-gold)"/>
                 </svg>
                 <span class="logo-text">AquaDrop</span>
             </div>
@@ -685,12 +736,18 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>La douche éco-luxe, en pastille.</h1>
-            <p>Un flacon réutilisable, des recharges compactes, moins de plastique au quotidien.</p>
-            <div class="hero-ctas">
-                <a href="#boutique" class="cta-primary">Découvrir le kit</a>
-                <a href="#boutique" class="cta-secondary">Voir les recharges</a>
+        <div class="hero-container">
+            <div class="hero-content">
+                <span class="hero-note">Rituel bain & corps</span>
+                <h1>La douche éco-luxe, en pastille</h1>
+                <p>Une mousse généreuse, des parfums sensoriels et un flacon réutilisable qui s'intègre à votre salle de bain comme un objet de design.</p>
+                <div class="hero-ctas">
+                    <a href="#boutique" class="cta-primary">Découvrir le kit</a>
+                    <a href="#boutique" class="cta-secondary">Explorer les recharges</a>
+                </div>
+            </div>
+            <div class="hero-media">
+                <img src="https://images.pexels.com/photos/6620964/pexels-photo-6620964.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Rituel de bain avec des produits AquaDrop sur un plateau en marbre">
             </div>
         </div>
     </section>
@@ -729,62 +786,72 @@
             
             <div class="products-grid">
                 <div class="product-card fade-in">
-                    <div class="product-image">🧴💧</div>
+                    <div class="product-media">
+                        <img src="https://images.pexels.com/photos/6621505/pexels-photo-6621505.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=1" alt="Kit AquaDrop présenté sur un plateau de salle de bain en marbre">
+                    </div>
                     <div class="product-content">
                         <h3 class="product-title">Kit AquaDrop Complet</h3>
                         <div class="product-price">€23,90</div>
                         <p class="product-description">
-                            1 flacon réutilisable rPET avec pompe moussante + 4 pastilles de gel douche (mix des 3 parfums). Idéal pour commencer votre routine éco-luxe.
+                            Le coffret signature : flacon réutilisable en verre fumé et quatre pastilles aux parfums iconiques pour un premier rituel complet.
                         </p>
-                        <button class="product-cta">Ajouter au panier</button>
+                        <a href="#" class="product-link">Découvrir <span>→</span></a>
                     </div>
                 </div>
 
                 <div class="product-card fade-in">
-                    <div class="product-image">🌿💊</div>
+                    <div class="product-media">
+                        <img src="https://images.pexels.com/photos/7796405/pexels-photo-7796405.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=1" alt="Recharges AquaDrop parfum sport posées près de serviettes blanches">
+                    </div>
                     <div class="product-content">
                         <h3 class="product-title">Recharges Sport</h3>
                         <div class="product-price">€4,20</div>
                         <p class="product-description">
-                            Pack de recharges énergisantes à la menthe et eucalyptus. Parfait après le sport pour une sensation de fraîcheur intense.
+                            Menthe glacée et eucalyptus, une pastille vivifiante pour prolonger l'énergie après l'entraînement.
                         </p>
-                        <button class="product-cta">Ajouter au panier</button>
+                        <a href="#" class="product-link">Découvrir <span>→</span></a>
                     </div>
                 </div>
 
                 <div class="product-card fade-in">
-                    <div class="product-image">🍃💊</div>
+                    <div class="product-media">
+                        <img src="https://images.pexels.com/photos/6621184/pexels-photo-6621184.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=1" alt="Recharges AquaDrop végétales à côté de feuilles fraîches">
+                    </div>
                     <div class="product-content">
                         <h3 class="product-title">Recharges Écolo</h3>
                         <div class="product-price">€4,20</div>
                         <p class="product-description">
-                            Formule 100% naturelle aux extraits de thé vert et aloe vera. Doux pour la peau et respectueux de l'environnement.
+                            Thé vert et aloe vera, une base douce et clean beauty certifiée, idéale pour les routines quotidiennes.
                         </p>
-                        <button class="product-cta">Ajouter au panier</button>
+                        <a href="#" class="product-link">Découvrir <span>→</span></a>
                     </div>
                 </div>
 
                 <div class="product-card fade-in">
-                    <div class="product-image">🌸💊</div>
+                    <div class="product-media">
+                        <img src="https://images.pexels.com/photos/6621524/pexels-photo-6621524.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=1" alt="Recharges AquaDrop délicates sur un drap en lin">
+                    </div>
                     <div class="product-content">
                         <h3 class="product-title">Recharges Sensitive</h3>
                         <div class="product-price">€4,20</div>
                         <p class="product-description">
-                            Spécialement formulé pour les peaux sensibles avec camomille et avoine. Hypoallergénique et sans parfum.
+                            Camomille et avoine bio, une formule hypoallergénique et sans parfum pour choyer les peaux sensibles.
                         </p>
-                        <button class="product-cta">Ajouter au panier</button>
+                        <a href="#" class="product-link">Découvrir <span>→</span></a>
                     </div>
                 </div>
 
                 <div class="product-card fade-in">
-                    <div class="product-image">🎁💊</div>
+                    <div class="product-media">
+                        <img src="https://images.pexels.com/photos/6766311/pexels-photo-6766311.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=1" alt="Trio de recharges AquaDrop attachées avec un ruban doré">
+                    </div>
                     <div class="product-content">
                         <h3 class="product-title">Pack 3 Recharges</h3>
                         <div class="product-price">€11,70</div>
                         <p class="product-description">
-                            Économisez avec notre pack découverte : 1 recharge de chaque parfum (Sport, Écolo, Sensitive). Livraison offerte !
+                            Un trio découverte des trois univers olfactifs AquaDrop, livré dans un écrin recyclable prêt à offrir.
                         </p>
-                        <button class="product-cta">Ajouter au panier</button>
+                        <a href="#" class="product-link">Découvrir <span>→</span></a>
                     </div>
                 </div>
             </div>
@@ -889,8 +956,8 @@
                     Dans le cadre du concours Mini-Entreprise organisé par Entreprendre Pour Apprendre, 
                     nous avons uni nos compétences pour créer une solution qui révolutionne l'industrie cosmétique.
                 </p>
-                <p style="margin-top: 2rem; font-size: 1.1rem; color: var(--forest-green);">
-                    <strong>Notre mission :</strong> Prouver qu'innovation rime avec préservation de l'environnement, 
+                <p style="margin-top: 2rem; font-size: 1.1rem; color: var(--color-ink);">
+                    <strong>Notre mission :</strong> Prouver qu'innovation rime avec préservation de l'environnement,
                     et que les jeunes ont le pouvoir de changer le monde, une pastille à la fois.
                 </p>
             </div>
@@ -983,9 +1050,12 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    const headerHeight = document.querySelector('.header').offsetHeight;
-                    const targetPosition = target.offsetTop - headerHeight;
-                    
+                    const headerEl = document.querySelector('.header');
+                    const serviceBar = document.querySelector('.service-bar');
+                    const headerHeight = headerEl ? headerEl.offsetHeight : 0;
+                    const serviceBarHeight = serviceBar ? serviceBar.offsetHeight : 0;
+                    const targetPosition = target.offsetTop - headerHeight - serviceBarHeight;
+
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
@@ -1035,20 +1105,6 @@
         // Observe all fade-in elements
         document.querySelectorAll('.fade-in').forEach(el => {
             observer.observe(el);
-        });
-
-        // Product card hover effects
-        document.querySelectorAll('.product-cta').forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                // Add cart animation here
-                button.textContent = 'Ajouté !';
-                button.style.background = 'var(--aqua)';
-                setTimeout(() => {
-                    button.textContent = 'Ajouter au panier';
-                    button.style.background = 'var(--deep-green)';
-                }, 1500);
-            });
         });
 
         // Parallax effect for hero section
