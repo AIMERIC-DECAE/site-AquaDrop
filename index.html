@@ -644,6 +644,11 @@
             outline: none;
         }
 
+        .email-button:focus-visible {
+            outline: 2px solid var(--color-gold);
+            outline-offset: 4px;
+        }
+
         .trust-badges {
             display: flex;
             justify-content: center;
@@ -706,6 +711,29 @@
             .trust-badges {
                 flex-direction: column;
                 align-items: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .hero-media img {
+                transition: none;
+            }
+
+            .cta-primary,
+            .cta-secondary,
+            .email-button,
+            .product-link span,
+            .faq-icon {
+                transition: none;
             }
         }
     </style>
@@ -1069,9 +1097,11 @@
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const navMenu = document.getElementById('navMenu');
 
-        mobileMenuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
+        if (mobileMenuToggle && navMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
 
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1099,7 +1129,9 @@
                     });
 
                     // Close mobile menu if open
-                    navMenu.classList.remove('active');
+                    if (navMenu) {
+                        navMenu.classList.remove('active');
+                    }
                 }
             });
         });
@@ -1156,13 +1188,14 @@
 
         // Parallax effect for hero section
         const heroMediaImage = document.querySelector('.hero-media img');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
         const updateParallax = () => {
             if (!heroMediaImage) {
                 return;
             }
 
-            if (window.innerWidth <= 768) {
+            if (prefersReducedMotion.matches || window.innerWidth <= 768) {
                 heroMediaImage.style.transform = 'translateY(0)';
                 return;
             }
@@ -1173,6 +1206,13 @@
 
         window.addEventListener('scroll', updateParallax);
         window.addEventListener('resize', updateParallax);
+
+        if (typeof prefersReducedMotion.addEventListener === 'function') {
+            prefersReducedMotion.addEventListener('change', updateParallax);
+        } else if (typeof prefersReducedMotion.addListener === 'function') {
+            prefersReducedMotion.addListener(updateParallax);
+        }
+
         updateParallax();
     </script>
 </body>
